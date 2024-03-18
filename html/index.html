@@ -2,25 +2,58 @@
 <html lang="es-mx">
     <head>
         <title>Books</title>
+        <style>
+        body {text-align: center;}
+        .contenedor {
+                        display: inline-block;
+                        text-align: left;
+                    }
+        </style>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/style.css" rel="stylesheet">
     </head>
-    <body>
-    <h1>La Biblioteca</h1>       
+    <body style="background-color:#FAE5D3">
+    <h1 style="color:#20B2AA">JAP Library</h1>       
     
     <article>
-            <h2><a href="\books\book1.html"> C# avanzado </a></h2>
-            <p> Pedro López, Juan Ruiz </p>
+            <form action="/search" method = "get">
+                <label for ="q" style="color: #20B2AA"> Buscar libro o palabra: </label>
+                <input type="text" name = "q" style="background-color: #f0f0f0; padding: 5px; border: 1px solid #ccc;
+                border-radius: 5px;"/>
+                <input type="submit" value="Buscar →" style="background-color: #20B2AA; color: white; padding:5px 10px;
+                border: none; border-radius: 5px;"/><br>
+           </forms>
+            <h2><a href="\books\1"> Orgullo y prejuicio </a></h2>
+            <span> Jane Austen </span>
+            <br>
+            <img src="https://m.media-amazon.com/images/I/71TutMCY1VL._SL1500_.jpg" alt="portadadeLibro" width="300">
             <br> 
-            <h2><a href="\books\book2.html"> El nuevo sistema operativo MS-DOS</a></h2>
-            <p> Joe Medina </p>
+            <h2><a href="\books\2"> El Diario de Ana Frank </a></h2>
+            <span> Ana Frank </span>
+            <br>
+            <img src="https://m.media-amazon.com/images/I/41SdagNGgcL.jpg" alt="portadadeLibro" width="300">
             <br> 
-            <h2><a href="\books\book3.html"> La Metamorfosis </a></h2>
-            <p> Patrick Alvarado </p>
+            <h2><a href="\books\3"> Un cuento perfecto </a></h2>
+            <span>  Elisabet Benavent </span>
+            <br>
+            <img src="https://m.media-amazon.com/images/I/51hxjD1YdxL._SY445_SX342_.jpg" alt="portadadeLibro" width="300">
             <br> 
-            <h2><a href="\books\book4.html"> La Danza de Hielo y Fuego </a></h2>
-            <p> R.R. González </p>
+            <h2><a href="\books\4"> El retrato de Dorian Grey </a></h2>
+            <span>  Oscar Wilde </span>
+            <br>
+            <img src="https://m.media-amazon.com/images/I/51LCszqp5gL._SY445_SX342_.jpg" alt="portadadeLibro" width="300"> 
+            <br> 
+            <h2><a href="\books\5">Los viajes de Gulliver</a></h2>
+            <span>Jonathan Swift</span>
+            <br>
+            <img src="https://m.media-amazon.com/images/I/3113E6RmSPL._SY445_SX342_.jpg" alt="portadadeLibro" width="300">
+            <br>
+            <h2><a href="\books\6">La bailarina de Auschwitz</a></h2>
+            <span>Edith Eger</span>
+            <br>
+            <img src="https://m.media-amazon.com/images/I/71QFe5W6x2L._SL1500_.jpg" alt="portadadeLibro" width="300">
+
     </article>
     </body>
 </html>
