@@ -115,19 +115,6 @@ class WebRequestHandler(BaseHTTPRequestHandler):
         with open('html/index.html') as f:
             response = f.read()
         self.wfile.write(response.encode("utf-8"))
-        #self.send_response(200)
-        #self.send_header("Content-Type", "text/html")
-        #self.end_headers()
-        #index_page = """
-        #<body style="background-color:#FAE5D3"></body>
-        #<h1 style="color: #20B2AA">Bienvenidos a la biblioteca!</h1>
-        #<form action="/search" method="GET">
-        #    <label for="q" style="color: #20B2AA;">Search:</label>
-        #    <input type="text" name="q" style="background-color: #f0f0f0; padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
-        #    <input type="submit" value="Buscar libros" style="background-color: #20B2AA; color: white; padding: 5px 10px; border: none; border-radius: 5px;">
-        #</form>
-        #""".encode("utf-8")
-        #self.wfile.write(index_page)
         
     def get_book(self, book_id):
         session_id = self.get_session()
@@ -148,25 +135,6 @@ class WebRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(response.encode("utf-8"))
         else:
             self.send_error(404, "Not found")
-            
-        """    
-        #redis
-        #r.lpush(f"session:{session_id}", f"book:{book_id}")
-        self.send_response(200)
-        self.send_header("Content-Type", "text/html")
-        self.write_session_cookie(session_id)
-        #antes de end headers se escribe el header de la cookie
-        self.end_headers()
-        #book_info = f"<h1> Info de Libro {book_id} es correcto </h1>".encode("utf-8")
-        book_info = r.get(f"book:{book_id}") or "<h1> No existe el libro </h1>"
-        #book_info = book_info + b"Session Id:{session_id}".encode("utf-8")
-        self.wfile.write(str(book_info).encode("utf-8"))
-        self.wfile.write(f"Session:{session_id}".encode("utf-8"))
-
-        book_list = r.lrange(f"session:{session_id}", 0, -1)
-        for book in book_list:
-            self.wfile.write(f"   Book:{book}".encode("utf-8"))
-        """
     
     def get_recomendation(self,session_id,book_id):
         r.rpush(session_id,book_id)
