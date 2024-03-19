@@ -1,37 +1,42 @@
 import os
 import re
 import redis
-from bs4 import BeautifulSoup #importar libreria
+# permite interactuar con elementos de una pagina web
+from bs4 import BeautifulSoup # extrae info en formato html/xml
 
+# conexión tipo locar con la base de datos redis
 r = redis.StrictRedis(host='localhost', port=6379, db=0)
 
+# carga los libros (.html) en redis, y utiliza el ID como key
+# directorio del html
 def load_dir(path):
-    #cargar el directorio
-    files = os.listdir(path)
+    files = os.listdir(path) # lista de archivos del diccionario
     print(files)
+    
     #filtrar los archivos
     for f in files:
-        match = re.match(r"^book(\d+).html$", f)
+        # verifica el patrón de la ruta especificada con la expresión regular
+        match = re.match(r"^book(\d+).html$", f) 
+        
         if match is not None:
-            with open(path + f) as file:
-                html = file.read()
-                book_id = match.group(1)
-                #llamar a metodo
+            with open(path + f) as file: # abre el archivo html
+                html = file.read() # lee el archivo
+                book_id = match.group(1)  # asigna el valor de su identificador
+                # #llama al metodo create_index y le pasa los parametros
                 create_index(book_id, html)
-                r.set(book_id, html)
+                r.set(book_id, html) # almacena el valor de ID como clave en redis 
+                # mensaje de confirmación de la carga de libros
                 print(f"{file} loaded into Redis")
         
-#Metodo que toma el book_id y el doc html
-#crea un diccionario que descompone el doc
+# índice de palabras de los html (libros)
 def create_index(book_id, html):
-    #se hace la sopa
+    # crea un objeto que contiene la estructura del html
     soup = BeautifulSoup(html, 'html.parser')
-    #asignar el texto del doc html a variable, se separa
-    ts = str(soup.p).lower()
-    palabras = ts.split()
-    #para cada termino en palabras guardar t y su book_id
-    for t in palabras:
-        t = t.replace(",","")
-        r.sadd(t,book_id) #t es el conjunto y sadd permite agregar conjunto
+    palabras = str(soup.p).lower() #obtiene el contenido de <p></p> y lo convierte a minusculas
+    claves = palabras.split() # divide las palabras por espacios 
+    
+    for clave in claves:
+        clave = clave.replace(",","") #reemplaza/borra las comas del final de la palabra
+        r.sadd(clave,book_id) #t es el conjunto y sadd permite agregar id al conjunto
 
-load_dir("html/books/")
+load_dir("html/books/") # ejecución del método para cargar los html(libros)
